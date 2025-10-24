@@ -231,3 +231,59 @@ with smoothness or piecewise-constant priors on (\rho).
 If you want, upload an example image and tell me which surface is the “receiver plane”; I’ll apply the shadow detection + light-direction fit and sketch the back-projection/silhouette so you can see these math steps in action.
 
 
+# Is there any online software that can take an image and try to reconstruct the stuff that's around it using generative AI or some sort of shadow technique or ray tracing?
+
+Yes — there **are** online tools that attempt to take a 2D image and generate (or approximate) 3D geometry, scene content, or extended views. Here are a few representative ones + what you should know about their capabilities and limitations.
+
+---
+
+### ✅ Example Tools
+
+* Meshy AI – Upload an image (or provide text) and it generates a 3D-model asset (OBJ/GLB) from it. ([Meshy AI][1])
+* IMGto3D.ai – Free online generator: converts 2D images/sketches into textured 3D models that you can download. ([IMGto3D.ai][2])
+* FluxAI 2D-to-3D Image Converter – Web-based, upload your 2D image, instantly get a 3D model. ([FluxAI][3])
+
+---
+
+### ⚠️ What they *can* and *can’t* do
+
+**What they *can* do:**
+
+* Generate a plausible 3D model (mesh + texture) from a single image, especially a *simple object* or *product photo*.
+* Provide a 3D-asset such that you can view/rotate it, use it in 3D scenes or export to formats like GLB, OBJ.
+* Create “extended views” or synthetic “other angles” of the scene by virtue of the inferred geometry (for some tools).
+
+**What they *can’t reliably do:**
+
+* Fully reconstruct **everything hidden** in the photo (back-faces, occluded regions) with full fidelity.
+* Guarantee accurate **scale**, **exact geometry**, or perfect physics (light/shadow realism) unless very constrained.
+* Replace a full photogrammetry / multi-view system when you only have one image of a complex real scene with many occluders.
+
+---
+
+### 🧐 Relation to “shadow-reconstruction” style
+
+While some of the above tools use deep generative models (neural nets) that go well beyond classical “shape from shadows”, they **do** overlap with the idea of using cues (shadows, shading, perspective) + learned priors to infer geometry. For instance:
+
+* Academic work such as TripoSR (image-to-3D reconstruction model) describes how a single image is fed into a model to infer mesh geometry. ([arXiv][4])
+* But these tools do *not* expose you to the explicit “shadow geometry → surface normal → depth map” workflow I described; instead they embed many heuristics/learned priors.
+
+---
+
+### 🔍 Recommendation for your specific use-case
+
+Since you’re interested in using shadows in an image (like your beach photo) to reconstruct surrounding geometry, I’d recommend:
+
+* Try one of the online tools above (e.g., IMGto3D.ai) by uploading your image and see what 3D output you get.
+* Keep expectations moderate: if the scene is complex (person + palm trees + sand + ocean) you’ll likely get a simplified model, not perfect.
+* If you want **fine control** (shadow geometry + manual calibration + true scene-reconstruction) you may need more specialised software (photogrammetry, manual modelling) and treat the online tool’s result as a “quick prototype”.
+
+---
+
+If you like, I can **scan and compare several of these tools with your beach photo** (uploading the same image) and we can see **which gives the best 3D reconstruction** from *your specific kind of scene*. Would you like me to do that?
+
+[1]: https://www.meshy.ai/?utm_source=chatgpt.com "Meshy AI - Create 3D Models from Text and Images with AI"
+[2]: https://www.imgto3d.ai/image-to-3d-model?utm_source=chatgpt.com "Convert Image to 3D Model in Seconds with AI"
+[3]: https://fluxai.art/features/2d-to-3d-image-converter?utm_source=chatgpt.com "Free 2D to 3D Image Converter – FluxAI 3D Model Generator Online"
+[4]: https://arxiv.org/abs/2403.02151?utm_source=chatgpt.com "TripoSR: Fast 3D Object Reconstruction from a Single Image"
+
